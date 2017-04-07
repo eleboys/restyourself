@@ -1,0 +1,19 @@
+{
+  "name": "restyourself",
+  "version": "1.0.0",
+  "description": "Yet another rest api mock server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Mock",
+    "Rest",
+    "API"
+  ],
+  "author": "Nima Baghdadi",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}

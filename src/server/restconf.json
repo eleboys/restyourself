@@ -1,0 +1,53 @@
+[{
+    "request": {
+      "path": "/",
+      "method": "get"
+    },
+    "response": {
+      "contentType": "application/json",
+      "headers": {},
+      "status": 200,
+      "type": "json",
+      "body": "{ 'name: 'Nima' }"
+    }
+  },
+  {
+    "request": {
+      "path": "/hotels",
+      "method": "get"
+    },
+    "response": {
+      "contentType": "application/json",
+      "headers": {},
+      "status": 200,
+      "type": "json",
+      "body": "[{\"id\":1, \"name\": \"Hotel 1\" }]"
+    }
+  },
+  {
+    "request": {
+      "path": "/travelmoney/api/v1/roles/user/permissions",
+      "method": "get"
+    },
+    "response": {
+      "contentType": "application/json",
+      "headers": {},
+      "status": 200,
+      "type": "json",
+      "body": "[]"
+    }
+  },
+  {
+    "request": {
+      "path": "/user/:name",
+      "method": "get"
+    },
+    "response": {
+      "contentType": "application/json",
+      "headers": {},
+      "status": 200,
+      "type": "function",
+      "body": "function (req, res) { return req.params.name; }"
+    }
+  }
+]

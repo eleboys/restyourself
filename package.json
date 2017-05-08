@@ -8,7 +8,7 @@
     "serve": "lite-server -c=bs-config.json",
     "serve:e2e": "lite-server -c=bs-config.e2e.json",
     "prestart": "npm run build-admin",
-    "start": "concurrently \"npm run build-admin:watch\" \"npm run serve\"",
+    "start": "concurrently \"gulp dev\" \"npm run build-admin:watch\" \"npm run serve\"",
     "pretest": "npm run build-admin",
     "test": "concurrently \"npm run build-admin:watch\" \"karma start karma.conf.js\"",
     "pretest:once": "npm run build-admin",
@@ -28,9 +28,11 @@
     "@angular/platform-browser-dynamic": "~4.0.0",
     "@angular/router": "~4.0.0",
     "angular-in-memory-web-api": "~0.3.0",
-    "systemjs": "0.19.40",
     "core-js": "^2.4.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
     "rxjs": "5.0.1",
+    "systemjs": "0.19.40",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
@@ -52,6 +54,7 @@
     "lodash": "^4.16.4",
     "protractor": "~4.0.14",
     "rimraf": "^2.5.4",
+    "run-sequence": "^1.2.2",
     "tslint": "^3.15.1",
     "typescript": "~2.1.0"
   },

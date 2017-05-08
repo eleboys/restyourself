@@ -1,8 +1,0 @@
-{
-  "server": {
-    "baseDir": "dist/admin",
-    "routes": {
-      "/node_modules": "node_modules"
-    }
-  }
-}

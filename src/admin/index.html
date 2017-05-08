@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="rys-app">
   <head>
     <title>Angular QuickStart</title>
     <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/style/app.css">
-
+    <link rel="stylesheet" href="assets/vendor/semantic/dist/semantic.min.css">
     <!-- Polyfill(s) for older browsers -->
-    <script src="node_modules/core-js/client/shim.min.js"></script>
-
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-
-    <script src="systemjs.config.js"></script>
-    <script>
-      System.import('main.js').catch(function(err){ console.error(err); });
-    </script>
   </head>
 
   <body>
-    <my-app>Loading AppComponent content here ...</my-app>
+    <div data-ui-view=""></div>
+    <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="assets/vendor/semantic/dist/semantic.min.js"></script>
+    <script src="assets/vendor/angular/angular.js"></script>
+    <script src="assets/vendor/angular-ui-router/release/angular-ui-router.js"></script>
+
+    <script src="app/module.app.js"></script>
+    <script src="app/route.app.js"></script>
+    <script src="app/ctrl.root.js"></script>
+    <script src="app/layout/dir.header.js"></script>
+    <script src="app/entities/config/ctrl.list.js"></script>
+    <script src="app/entities/config/srv.config.js"></script>
+
   </body>
 </html>

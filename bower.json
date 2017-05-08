@@ -1,0 +1,23 @@
+{
+  "name": "angular-quickstart",
+  "description": "QuickStart package.json from the documentation, supplemented with testing support",
+  "main": "",
+  "authors": [
+    "Nima <bg.nima@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "dist/admin/assets/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "semantic": "semantic-ui#^2.2.10",
+    "angular": "^1.6.4",
+    "angular-ui-router": "^1.0.3"
+  }
+}

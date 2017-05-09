@@ -2,6 +2,7 @@
   'use strict';
 
   angular.module('rys-app', [
-		'ui.router'
+		'ui.router',
+    'ui.ace'
   ]);
 })();

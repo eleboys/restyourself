@@ -1,0 +1,70 @@
+<h2 class="ui header">
+  <i class="plug icon"></i>
+  <div class="content">
+    API Detail
+  </div>
+</h2>
+<br/>
+<br/>
+<form id="apiForm" class="ui form" ng-submit="vm.save()" semantic-validation="{fields: { path: 'empty', method: 'empty', status: 'empty', contentType: 'empty'}, inline:true}">
+
+  <h4 class="ui dividing header">
+    Request Detail
+  </h4>
+  <section>
+    <div class="field">
+      <label>Path</label>
+      <input type="text" name="path" placeholder="Url Path" ng-model="vm.config.path">
+    </div>
+    <div class="two fields">
+      <div class="field ">
+        <label>Method</label>
+        <select name="method" class="ui dropdown" id="select" semantic-dropdown ng-model="vm.config.method">
+          <option value="">Http Method</option>
+          <option value="get">GET</option>
+          <option value="post">POST</option>
+          <option value="put">PUT</option>
+          <option value="delete">DELETE</option>
+          <option value="delete">OPTIONS</option>
+        </select>
+      </div>
+    </div>
+  </section>
+  <br>
+  <h4 class="ui dividing header">
+    Response Detail
+  </h4>
+  <section>
+    <div class="three fields">
+      <div class="field">
+        <label>Status</label>
+        <input type="text" name="status" placeholder="Status Code" ng-model="vm.config.status">
+      </div>
+      <div class="field">
+        <label>Http Method</label>
+        <select name="contentType" class="ui dropdown" id="select" semantic-dropdown ng-model="vm.config.contentType">
+          <option value="">Content-Type</option>
+          <option value="application/json">application/json</option>
+          <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+          <option value="text/plain">text/plain</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Body Type</label>
+        <select name="type" class="ui dropdown" id="select" ng-model="vm.config.type" semantic-dropdown>
+          <option value="json">Json</option>
+          <option value="javascript">Javascript Function</option>
+          <option value="text">Text</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Body</label>
+      <div ui-ace="{mode: vm.config.type}" ng-model="vm.config.body"></div>
+    </div>
+  </section>
+  <br/>
+  <div class="ui divider"></div>
+  <button class="ui button primary large" ng-class="{loading: vm.saving}"><i class="save icon"></i> Save</button>
+  <button class="ui button large" ui-sref="app.list">Cancel</button>
+</form>

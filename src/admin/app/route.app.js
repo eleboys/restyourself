@@ -20,6 +20,12 @@
 					templateUrl: 'app/entities/config/view.list.html',
 					controller: 'ConfigListController',
           controllerAs: 'vm'
+				})
+        .state('app.detail', {
+					url: '/detail',
+					templateUrl: 'app/entities/config/view.detail.html',
+					controller: 'ConfigDetailController',
+          controllerAs: 'vm'
 				});
 
 		}]);

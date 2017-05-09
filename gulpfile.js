@@ -11,7 +11,9 @@ gulp.task('sass', function () {
   return gulp.src('./src/admin/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer(['last 2 versions', 'ie 8', 'ie 9']))
-    .pipe(gulp.dest('./dist/admin'));
+    .pipe(gulp.dest('./dist/admin'))
+    .pipe(browserSync.stream());
+
 });
 
 gulp.task('copy:admin', function () {
@@ -35,10 +37,20 @@ gulp.task('serve', function () {
     }
   });
 
-  gulp.watch(adminFiles, ['copy:admin', 'reload']);
+  gulp.watch(adminFiles, runSequenceTaskAndReloadBrowser('copy:admin'));
+  gulp.watch('./src/admin/**/*.scss', ['sass'])
 });
 
 
 gulp.task('dev', callback => {
 	runSequence('sass', 'copy:admin', 'copy:server', 'serve');
 });
+
+
+function runSequenceTaskAndReloadBrowser(taskName) {
+	return function() {
+		runSequence(taskName, function(){
+			browserSync.reload()
+		});
+	}
+}

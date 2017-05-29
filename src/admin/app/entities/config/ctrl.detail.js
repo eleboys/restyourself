@@ -5,14 +5,13 @@
     .module('rys-app')
     .controller('ConfigDetailController', ConfigDetailController);
 
-  ConfigDetailController.$inject = ['configService', '$state'];
-  function ConfigDetailController(configService, $state) {
+  ConfigDetailController.$inject = ['configService', '$state','api'];
+  function ConfigDetailController(configService, $state, api) {
     var vm = this;
     vm.save = save;
     vm.saving = false;
-    vm.config = {
-      type:'javascript'
-    }
+    console.log(api);
+    vm.api = api
 
     activate();
 
@@ -24,9 +23,11 @@
       if (!$('#apiForm').form('is valid'))
         return;
       vm.saving = true;
-      configService.create(vm.config).then(function (params) {
+      var method = vm.api.id ? 'update' : 'create';
+      configService[method](vm.api).then(function (params) {
         $state.go('app.list');
       });
     }
+
   }
 })();

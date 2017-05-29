@@ -11,12 +11,15 @@ app.use(cors());
 restApis.forEach(function (conf: any) {
   var reqConf = conf.request,
     resConf = conf.response;
-
+  console.log(reqConf.method, reqConf.path);
   app[reqConf.method.toLowerCase()](reqConf.path, function (req: any, res: any) {
+
+    console.log('===>', req.method, req.path);
+
     res.type(resConf.contentType);
     res.status(resConf.status);
     res.set(resConf.headers);
-    if (resConf.bodyType === 'function') {
+    if (resConf.type === 'javascript') {
       var fnStr = "("+ resConf.body+ ")",
           fnBody = eval(fnStr);
 

@@ -19,7 +19,9 @@
 
     function link(scope, element, attrs) {
       var options = scope.options || {};
-      element.dropdown(options);
+      setTimeout(function () {
+        element.dropdown();
+      });
     }
   }
 

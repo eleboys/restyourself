@@ -14,12 +14,12 @@
   <section>
     <div class="field">
       <label>Path</label>
-      <input type="text" name="path" placeholder="Url Path" ng-model="vm.config.path">
+      <input type="text" name="path" placeholder="Url Path" ng-model="vm.api.path">
     </div>
     <div class="two fields">
       <div class="field ">
         <label>Method</label>
-        <select name="method" class="ui dropdown" id="select" semantic-dropdown ng-model="vm.config.method">
+        <select name="method" class="ui dropdown" id="select" semantic-dropdown ng-model="vm.api.method">
           <option value="">Http Method</option>
           <option value="get">GET</option>
           <option value="post">POST</option>
@@ -38,11 +38,11 @@
     <div class="three fields">
       <div class="field">
         <label>Status</label>
-        <input type="text" name="status" placeholder="Status Code" ng-model="vm.config.status">
+        <input type="text" name="status" placeholder="Status Code" ng-model="vm.api.status">
       </div>
       <div class="field">
         <label>Http Method</label>
-        <select name="contentType" class="ui dropdown" id="select" semantic-dropdown ng-model="vm.config.contentType">
+        <select name="contentType" class="ui dropdown" id="select" semantic-dropdown ng-model="vm.api.contentType">
           <option value="">Content-Type</option>
           <option value="application/json">application/json</option>
           <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
@@ -51,7 +51,7 @@
       </div>
       <div class="field">
         <label>Body Type</label>
-        <select name="type" class="ui dropdown" id="select" ng-model="vm.config.type" semantic-dropdown>
+        <select name="type" class="ui dropdown" id="select" ng-model="vm.api.type" semantic-dropdown>
           <option value="json">Json</option>
           <option value="javascript">Javascript Function</option>
           <option value="text">Text</option>
@@ -60,7 +60,7 @@
     </div>
     <div class="field">
       <label>Body</label>
-      <div ui-ace="{mode: vm.config.type}" ng-model="vm.config.body"></div>
+      <div ui-ace="{mode: vm.api.type}" ng-model="vm.api.body"></div>
     </div>
   </section>
   <br/>

@@ -4,6 +4,7 @@ var sass = require('gulp-sass');
 var autoprefixer    = require('gulp-autoprefixer');
 var runSequence	    = require('run-sequence');
 var browserSync     = require('browser-sync').create();
+var exec            = require('child_process').exec;
 
 var adminFiles = ['./src/admin/**/*.*', '!./src/admin/**/*.s*ss'];
 
@@ -41,6 +42,10 @@ gulp.task('serve', function () {
   gulp.watch('./src/admin/**/*.scss', ['sass'])
 });
 
+
+gulp.task('run-server', () => {
+
+});
 
 gulp.task('dev', callback => {
 	runSequence('sass', 'copy:admin', 'copy:server', 'serve');

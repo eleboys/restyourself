@@ -1,44 +1,41 @@
-<button class="ui primary icon button" ui-sref="app.detail">
-  <i class="plus icon"></i>
-</button>
+<div class="ui grid">
+  <div class="eight wide column">
+    <button class="ui primary icon button" ui-sref="app.detail({id:null})">
+      <i class="plus icon"></i>
+    </button>
+    <button class="ui default icon button"  ng-class="{disabled: !vm.selectedRow}"  ui-sref="app.detail({id: vm.selectedRow.id})">
+      <i class="edit icon"></i>
+    </button>
+    <button class="ui default icon button"  ng-class="{disabled: !vm.selectedRow}" ng-click="vm.deleteApi(vm.selectedRow.id)">
+      <i class="trash icon"></i>
+    </button>
+  </div>
+  <div class="eight wide column" style="text-align: right">
+    <div class="ui search">
+      <div class="ui icon input">
+        <input class="prompt" type="text" ng-model="vm.searchKeyword" placeholder="Search here...">
+        <i class="search icon"></i>
+      </div>
+      <div class="results"></div>
+    </div>
+  </div>
+</div>
 
-<table class="ui celled table">
+<table class="ui celled table compact">
   <thead>
     <tr>
       <th>Url</th>
       <th>Method</th>
       <th>Content Type</th>
       <th>Status</th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in vm.configs">
+    <tr ng-repeat="item in vm.configs | filter:{'request': { 'path': vm.searchKeyword } }" ng-class="{active: item==vm.selectedRow}" ng-click="vm.selectedRow=item">
       <td>{{item.request.path}}</td>
-      <td>{{item.request.method}}</td>
+      <td>{{item.request.method|uppercase}}</td>
       <td>{{item.response.contentType}}</td>
       <td>{{item.response.status}}</td>
-      <td>
-        <button></button>
-      </td>
     </tr>
   </tbody>
-  <tfoot>
-    <tr>
-      <th colspan="5">
-        <div class="ui right floated pagination menu">
-          <a class="icon item">
-            <i class="left chevron icon"></i>
-          </a>
-          <a class="item">1</a>
-          <a class="item">2</a>
-          <a class="item">3</a>
-          <a class="item">4</a>
-          <a class="icon item">
-            <i class="right chevron icon"></i>
-          </a>
-        </div>
-      </th>
-    </tr>
-  </tfoot>
 </table>

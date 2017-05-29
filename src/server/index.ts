@@ -2,8 +2,7 @@ var express = require('express');
 var low = require('lowdb');
 var cors = require('cors');
 var app = express();
-
-const db = low('./restconf.json');
+const db = low(__dirname+'\\restconf.json');
 var restApis = db.get('apis').value();
 
 app.use(cors());
@@ -11,7 +10,6 @@ app.use(cors());
 restApis.forEach(function (conf: any) {
   var reqConf = conf.request,
     resConf = conf.response;
-  console.log(reqConf.method, reqConf.path);
   app[reqConf.method.toLowerCase()](reqConf.path, function (req: any, res: any) {
 
     console.log('===>', req.method, req.path);
@@ -28,11 +26,9 @@ restApis.forEach(function (conf: any) {
       res.send(resConf.body);
     }
   });
-
-
 }, this);
 
 
 app.listen(3100, function () {
-  console.log('Example app listening on port 3000!')
+  console.log('Rest Mock Server is listening on port 3100!')
 });

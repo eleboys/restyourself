@@ -1,10 +1,12 @@
 'use strict';
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var autoprefixer    = require('gulp-autoprefixer');
-var runSequence	    = require('run-sequence');
-var browserSync     = require('browser-sync').create();
-var exec            = require('child_process').exec;
+var autoprefixer = require('gulp-autoprefixer');
+var runSequence = require('run-sequence');
+var browserSync = require('browser-sync').create();
+var spawn = require('child_process').spawn;
+var ts = require('gulp-typescript');
+var admin_node, server_node;
 
 var adminFiles = ['./src/admin/**/*.*', '!./src/admin/**/*.s*ss'];
 
@@ -22,11 +24,6 @@ gulp.task('copy:admin', function () {
     .pipe(gulp.dest('./dist/admin'));
 });
 
-gulp.task('copy:server', function () {
-  return gulp.src(['./src/server/**/*.json'])
-    .pipe(gulp.dest('./dist/server'));
-});
-
 gulp.task('reload', function () {
   browserSync.reload();
 });
@@ -42,20 +39,57 @@ gulp.task('serve', function () {
   gulp.watch('./src/admin/**/*.scss', ['sass'])
 });
 
+gulp.task('tsc', function () {
+  return gulp.src('src/server/**/*.ts')
+    .pipe(ts({
+      noImplicitAny: true
+    }))
+    .pipe(gulp.dest('dist/server'));
+});
 
-gulp.task('run-server', () => {
+gulp.task('run-node:admin', () => {
+  if (admin_node) admin_node.kill()
+  admin_node = spawn('node', ['dist/server/admin.js'], {
+    stdio: 'inherit'
+  })
+  admin_node.on('close', function (code) {
+    if (code === 8) {
+      gulp.log('Error detected, waiting for changes...');
+    }
+  });
+});
 
+gulp.task('run-node:server', () => {
+  if (server_node) server_node.kill()
+  server_node = spawn('node', ['dist/server/index.js'], {
+    stdio: 'inherit'
+  })
+  server_node.on('close', function (code) {
+    if (code === 8) {
+      gulp.log('Error detected, waiting for changes...');
+    }
+  });
 });
 
 gulp.task('dev', callback => {
-	runSequence('sass', 'copy:admin', 'copy:server', 'serve');
+  runSequence('sass', 'copy:admin', 'serve','tsc', 'run-node:server', 'run-node:admin');
+
+  gulp.watch('./src/server/*.ts', function () {
+    runSequence('tsc','run-node:server','run-node:admin' );
+  });
 });
 
 
 function runSequenceTaskAndReloadBrowser(taskName) {
-	return function() {
-		runSequence(taskName, function(){
-			browserSync.reload()
-		});
-	}
+  return function () {
+    runSequence(taskName, function () {
+      browserSync.reload();
+    });
+  }
 }
+
+// clean up if an error goes unhandled.
+process.on('exit', function() {
+    if (admin_node) admin_node.kill();
+    if (server_node) server_node.kill();
+})

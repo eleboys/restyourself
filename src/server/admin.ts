@@ -41,7 +41,7 @@ app.delete('/api/configs/:id', function (req:any, res: any) {
 })
 
 app.listen(3101, function () {
-  console.log('Example app listening on port 3101!')
+  console.log('Admin rest api provider app listening on port 3101!' )
 });
 
 

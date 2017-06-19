@@ -18,6 +18,8 @@
   "dependencies": {
     "semantic": "semantic-ui#^2.2.10",
     "angular": "^1.6.4",
-    "angular-ui-router": "^1.0.3"
+    "angular-ui-router": "^1.0.3",
+    "ace-builds": "^1.2.6",
+    "angular-ui-ace": "^0.2.3"
   }
 }

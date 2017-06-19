@@ -53,7 +53,8 @@ function apiVmToDto(apiVm:any): any {
         status: apiVm.status,
         contentType: apiVm.contentType,
         type: apiVm.type,
-        body: apiVm.body
+        body: apiVm.body,
+        headers: apiVm.headers || []
       }
     };
 }

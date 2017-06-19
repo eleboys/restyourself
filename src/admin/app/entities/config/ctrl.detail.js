@@ -10,8 +10,9 @@
     var vm = this;
     vm.save = save;
     vm.saving = false;
+    vm.removeHeader = removeHeader;
     console.log(api);
-    vm.api = api
+    vm.api = api;
 
     activate();
 
@@ -27,6 +28,11 @@
       configService[method](vm.api).then(function (params) {
         $state.go('app.list');
       });
+    }
+
+    function removeHeader(header) {
+      var index = vm.api.headers.indexOf(header);
+      vm.api.headers.splice(index, 1);
     }
 
   }

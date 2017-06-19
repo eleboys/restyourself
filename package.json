@@ -44,6 +44,7 @@
     "bower": "^1.8.0",
     "canonical-path": "0.0.2",
     "concurrently": "^3.2.0",
+    "ejs": "^2.5.6",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-sass": "^3.1.0",

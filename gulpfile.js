@@ -32,7 +32,8 @@ gulp.task('serve', function () {
   browserSync.init({
     server: {
       baseDir: "./dist/admin"
-    }
+    },
+    port: 8989
   });
 
   gulp.watch(adminFiles, runSequenceTaskAndReloadBrowser('copy:admin'));

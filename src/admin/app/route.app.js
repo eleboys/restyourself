@@ -33,7 +33,9 @@
                 return configService.getById(id);
               else
                 return {
-                  type: 'json'
+                  type: 'json',
+                  headers: [],
+                  status: 200
                 };
             }]
           }

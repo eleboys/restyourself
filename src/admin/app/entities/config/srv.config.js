@@ -29,7 +29,8 @@
           type: api.response.type,
           body: api.response.body,
           contentType: api.response.contentType,
-          status: api.response.status
+          status: api.response.status,
+          headers: api.response.headers || []
         }
       });
     }

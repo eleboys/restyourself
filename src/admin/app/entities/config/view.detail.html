@@ -55,12 +55,27 @@
           <option value="json">Json</option>
           <option value="javascript">Javascript Function</option>
           <option value="text">Text</option>
+          <option value="ejs">EJS Template</option>
         </select>
       </div>
     </div>
     <div class="field">
       <label>Body</label>
       <div ui-ace="{mode: vm.api.type}" ng-model="vm.api.body"></div>
+    </div>
+    <div class="field">
+      <label>Custom Headers <a ng-click="vm.api.headers.push({})"><i class="add large circle icon"></i></a></label>
+      <div class="ui mini message" ng-if="!vm.api.headers.length">
+        No Custom Headers Defined
+      </div>
+      <div ng-repeat="header in vm.api.headers" ng-class="{'mb-10':!$last}">
+        <input type="text" style="width: 45%" name="headerKey" placeholder="Key" ng-model="header.key">
+        <span>&nbsp;&nbsp;:&nbsp;&nbsp;</span>
+        <input type="text"  style="width: 45%" name="headerKey" placeholder="Value" ng-model="header.value">
+        <a class="text-silver" ng-click="vm.removeHeader(header)">
+          <i class="icon close mt-10"></i>
+        </a>
+      </div>
     </div>
   </section>
   <br/>

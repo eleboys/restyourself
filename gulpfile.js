@@ -6,6 +6,7 @@ var runSequence = require('run-sequence');
 var browserSync = require('browser-sync').create();
 var spawn = require('child_process').spawn;
 var ts = require('gulp-typescript');
+var connect = require('gulp-connect');
 var admin_node, server_node;
 
 var adminFiles = ['./src/admin/**/*.*', '!./src/admin/**/*.s*ss'];
@@ -16,7 +17,6 @@ gulp.task('sass', function () {
     .pipe(autoprefixer(['last 2 versions', 'ie 8', 'ie 9']))
     .pipe(gulp.dest('./dist/admin'))
     .pipe(browserSync.stream());
-
 });
 
 gulp.task('copy:admin', function () {
@@ -28,7 +28,7 @@ gulp.task('reload', function () {
   browserSync.reload();
 });
 
-gulp.task('serve', function () {
+gulp.task('serve:dev', function () {
   browserSync.init({
     server: {
       baseDir: "./dist/admin"
@@ -39,6 +39,13 @@ gulp.task('serve', function () {
   gulp.watch(adminFiles, runSequenceTaskAndReloadBrowser('copy:admin'));
   gulp.watch('./src/admin/**/*.scss', ['sass'])
 });
+
+gulp.task('serve:dist', function () {
+  connect.server({
+    root: './dist/admin',
+    port: 8989
+  });
+})
 
 gulp.task('tsc', function () {
   return gulp.src('src/server/**/*.ts')
@@ -73,11 +80,15 @@ gulp.task('run-node:server', () => {
 });
 
 gulp.task('dev', callback => {
-  runSequence('sass', 'copy:admin', 'serve','tsc', 'run-node:server', 'run-node:admin');
+  runSequence('sass', 'copy:admin', 'serve:dev','tsc', 'run-node:server', 'run-node:admin');
 
   gulp.watch('./src/server/*.ts', function () {
     runSequence('tsc','run-node:server','run-node:admin' );
   });
+});
+
+gulp.task('dist', callback => {
+  runSequence('sass', 'copy:admin', 'serve:dist', 'tsc', 'run-node:server', 'run-node:admin');
 });
 
 

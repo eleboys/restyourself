@@ -14,13 +14,13 @@
       update: update,
       deleteById : deleteById
     };
-
+    var baseUrl = 'http://localhost:3101';
     return service;
 
     ////////////////
 
     function getById(id) {
-      return $http.get('http://localhost:3101/api/configs/'+id).then(function (api) {
+      return $http.get(baseUrl + '/api/configs/'+id).then(function (api) {
         api = api.data;
         return {
           id : api.id,
@@ -36,19 +36,19 @@
     }
 
     function getAll() {
-      return $http.get('http://localhost:3101/api/configs');
+      return $http.get(baseUrl + '/api/configs');
     }
 
     function create(configVM) {
-      return $http.post('http://localhost:3101/api/configs', configVM);
+      return $http.post(baseUrl + '/api/configs', configVM);
     }
 
     function update(configVM) {
-      return $http.put('http://localhost:3101/api/configs', configVM);
+      return $http.put(baseUrl + '/api/configs', configVM);
     }
 
     function deleteById(id) {
-      return $http.delete('http://localhost:3101/api/configs/'+id);
+      return $http.delete(baseUrl + '/api/configs/'+id);
     }
   }
 })();

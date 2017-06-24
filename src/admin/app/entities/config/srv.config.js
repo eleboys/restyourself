@@ -14,7 +14,7 @@
       update: update,
       deleteById : deleteById
     };
-    var baseUrl = 'http://localhost:3101';
+    var baseUrl = 'http://178.62.252.62:3101';
     return service;
 
     ////////////////

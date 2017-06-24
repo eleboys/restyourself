@@ -11,7 +11,6 @@
     vm.save = save;
     vm.saving = false;
     vm.removeHeader = removeHeader;
-    console.log(api);
     vm.api = api;
 
     activate();

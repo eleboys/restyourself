@@ -177,8 +177,8 @@
       "response": {
         "status": 200,
         "contentType": "text/plain",
-        "type": "text",
-        "body": "200",
+        "type": "ejs",
+        "body": "<%= db.get('ids').push({id: 1}).write() %>\nOK",
         "headers": []
       },
       "id": 20

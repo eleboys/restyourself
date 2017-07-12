@@ -1,5 +1,6 @@
 var express = require('express');
 var low = require('lowdb');
+var low1 = require('lowdb');
 var cors = require('cors');
 var app = express();
 var path = require('path');
@@ -29,13 +30,14 @@ function buildRouteMap() {
 
   console.info('Building server url maps....');
   router = express.Router();
-  const db = low('./restconf.json');
-  var restApis = db.get('apis').value();
+  const configdb = low('./restconf.json');
+  const datadb   = low1('./data.json');
+  var restApis = configdb.get('apis').value();
 
   restApis.forEach(function (conf: any) {
     var reqConf = conf.request,
         resConf = conf.response;
-    // console.log(resConf.body);
+
     router[reqConf.method.toLowerCase()](reqConf.path, function (req: any, res: any) {
 
       console.log('===>', req.method, req.path);
@@ -53,7 +55,7 @@ function buildRouteMap() {
 
         res.send(fnBody(req, res));
       } else if (resConf.type==='ejs') {
-        res.send(ejs.render(resConf.body, {req:req, res: res}));
+        res.send(ejs.render(resConf.body, { req: req, res: res, db: datadb}));
       } else {
         res.send(resConf.body);
       }
@@ -61,3 +63,7 @@ function buildRouteMap() {
   }, this);
   console.info('Url maps build completely.');
 }
+
+
+
+

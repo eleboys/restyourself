@@ -7,6 +7,14 @@ var browserSync = require('browser-sync').create();
 var spawn = require('child_process').spawn;
 var ts = require('gulp-typescript');
 var connect = require('gulp-connect');
+var myip = require('quick-local-ip');
+var replace = require('gulp-replace');
+var argsv = require('yargs').default({
+  adminuiport:8989,
+  adminport:3101,
+  restport:3100,
+  localip: myip.getLocalIP4()
+}).argv;
 var admin_node, server_node;
 
 var adminFiles = ['./src/admin/**/*.*', '!./src/admin/**/*.s*ss'];
@@ -21,6 +29,7 @@ gulp.task('sass', function () {
 
 gulp.task('copy:admin', function () {
   return gulp.src(adminFiles)
+    .pipe(replace('{{ip-address-placeholder}}', argsv.localip, {skipBinary: true}))
     .pipe(gulp.dest('./dist/admin'));
 });
 
@@ -33,7 +42,7 @@ gulp.task('serve:dev', function () {
     server: {
       baseDir: "./dist/admin"
     },
-    port: 8989
+    port: argsv.adminuiport
   });
 
   gulp.watch(adminFiles, runSequenceTaskAndReloadBrowser('copy:admin'));
@@ -43,7 +52,7 @@ gulp.task('serve:dev', function () {
 gulp.task('serve:dist', function () {
   connect.server({
     root: './dist/admin',
-    port: 8989
+    port: argsv.adminuiport
   });
 })
 
@@ -57,7 +66,7 @@ gulp.task('tsc', function () {
 
 gulp.task('run-node:admin', () => {
   if (admin_node) admin_node.kill()
-  admin_node = spawn('node', ['dist/server/admin.js'], {
+  admin_node = spawn('node', ['dist/server/admin.js',`--port=${argsv.adminport}`], {
     stdio: 'inherit'
   })
   admin_node.on('close', function (code) {
@@ -69,7 +78,7 @@ gulp.task('run-node:admin', () => {
 
 gulp.task('run-node:server', () => {
   if (server_node) server_node.kill()
-  server_node = spawn('node', ['dist/server/index.js'], {
+  server_node = spawn('node', ['dist/server/index.js',`--port=${argsv.restport}`], {
     stdio: 'inherit'
   })
   server_node.on('close', function (code) {

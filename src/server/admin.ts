@@ -4,6 +4,7 @@ var bodyParser = require('body-parser')
 var cors = require('cors');
 var multer = require('multer');
 var services = require('./services');
+var argsv = require('yargs').default('port', 3101).argv;
 
 var upload = multer();
 var app = express();
@@ -40,8 +41,8 @@ app.delete('/api/configs/:id', function (req:any, res: any) {
   res.send(200);
 })
 
-app.listen(3101, function () {
-  console.log('Admin rest api provider app listening on port 3101!' )
+app.listen(argsv.port, function () {
+  console.log(`Admin rest api provider app listening on port ${argsv.port}!`);
 });
 
 

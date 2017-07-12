@@ -39,6 +39,12 @@
                 };
             }]
           }
+        })
+        .state('app.importexport', {
+          url: '/importexport',
+          templateUrl: 'app/entities/config/view.importexport.html',
+          controller: 'ImportExportController',
+          controllerAs: 'vm'
         });
 
     }]);

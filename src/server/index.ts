@@ -6,6 +6,8 @@ var app = express();
 var path = require('path');
 var ejs = require('ejs');
 var fs = require('fs');
+var argsv = require('yargs').default('port', 3100).argv;
+
 var router: any = undefined;
 app.use(cors());
 
@@ -16,13 +18,20 @@ app.use(function (req: any, res: any, next: any) {
   router(req, res, next);
 });
 
+app.get('/export', (req: any, res: any) => {
+  res.download('./restconf.json');
+});
+app.put('/import', (req: any, res: any) => {
+  res.download('./restconf.json');
+});
+
 fs.watch('./restconf.json',function (eventType:any, filename:any) {
   console.warn(filename + ' changed!');
   buildRouteMap();
 });
 
-app.listen(3100, function () {
-  console.log('Rest Mock Server is listening on port 3100!')
+app.listen(argsv.port, function () {
+  console.log(`Rest Mock Server is listening on port ${argsv.port}!`)
 });
 
 

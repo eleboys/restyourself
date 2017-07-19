@@ -3,8 +3,9 @@
 
   angular
     .module('rys-app')
-    .run(['$trace', function ($trace) {
+    .config(['$httpProvider', function ( $httpProvider) {
       //$trace.enable('TRANSITION');
+      $httpProvider.interceptors.push('authInterceptor');
     }]);
 
 })();

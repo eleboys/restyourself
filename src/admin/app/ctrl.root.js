@@ -5,8 +5,8 @@
     .module('rys-app')
     .controller('RootController', RootController);
 
-  RootController.$inject = ['spinnerService','$transitions'];
-  function RootController(spinnerService,$transitions) {
+  RootController.$inject = ['spinnerService','$transitions','user'];
+  function RootController(spinnerService,$transitions, user) {
     var vm = this;
     activate();
 

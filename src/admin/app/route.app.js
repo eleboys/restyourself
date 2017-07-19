@@ -5,7 +5,7 @@
     .module('rys-app')
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-      $urlRouterProvider.otherwise("/list");
+      $urlRouterProvider.otherwise("/login");
       // $locationProvider.html5Mode(true);
 
       $stateProvider
@@ -13,6 +13,11 @@
           url: '',
           templateUrl: 'app/view.root.html',
           controller: 'RootController',
+          resolve: {
+            user: ['authService', function (authService) {
+              return authService.getProfile();
+            }]
+          },
           abstract: true
         })
         .state('app.list', {
@@ -48,7 +53,9 @@
         })
         .state('login', {
           url: '/login',
-          templateUrl: 'app/pages/view.login.html'
+          templateUrl: 'app/entities/login/view.login.html',
+          controller: 'LoginController',
+          controllerAs: 'vm'
         });
 
     }]);

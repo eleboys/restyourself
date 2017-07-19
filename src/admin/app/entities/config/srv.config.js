@@ -14,7 +14,7 @@
       update: update,
       deleteById : deleteById
     };
-    var baseUrl = 'http://{{ip-address-placeholder}}:3101';
+    var baseUrl = 'http://{{ip-address-placeholder}}:{{admin-port}}';
     return service;
 
     ////////////////

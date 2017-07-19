@@ -5,8 +5,8 @@
     .module('rys-app')
     .directive('rysHeader', RysHeader);
 
-  RysHeader.$inject = [];
-  function RysHeader() {
+  RysHeader.$inject = ['authService', '$state'];
+  function RysHeader(authService, $state) {
     // Usage:
     //
     // Creates:
@@ -21,6 +21,13 @@
     return directive;
 
     function link(scope, element, attrs) {
+      scope.logout = function () {
+        authService.logout().then(function () {
+          $state.go('login');
+        });
+      }
+
+      scope.user = authService.getUser();
     }
   }
 

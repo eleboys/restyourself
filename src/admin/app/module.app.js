@@ -3,6 +3,7 @@
 
   angular.module('rys-app', [
 		'ui.router',
-    'ui.ace'
+    'ui.ace',
+    'ngCookies'
   ]);
 })();

@@ -8,10 +8,10 @@
     <a ui-sref="app.importexport" class="item">Import/Export</a>
 
     <div class="right menu">
-      <div class="ui borderless dropdown item">
-        <i class="icon user large circle outline"></i>Nima Baghdadi<i class="dropdown icon"></i>
+      <div semantic-dropdown class="ui borderless dropdown item">
+        <i class="icon user large circle outline"></i>{{user.displayName}}<i class="dropdown icon"></i>
         <div class="menu">
-          <a class="item">
+          <a class="item" ng-click="logout()">
             <i class="icon power"></i>Sign Out
           </a>
         </div>

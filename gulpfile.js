@@ -101,7 +101,7 @@ gulp.task('dev', callback => {
 });
 
 gulp.task('dist', callback => {
-  runSequence('sass', 'copy:admin', 'copy:server', 'serve:dist', 'tsc', 'run-node:server', 'run-node:admin');
+  runSequence('sass', 'copy:admin', 'copy:server', 'serve:dist', 'run-node:server', 'run-node:admin');
 });
 
 

@@ -45,6 +45,10 @@
           templateUrl: 'app/entities/config/view.importexport.html',
           controller: 'ImportExportController',
           controllerAs: 'vm'
+        })
+        .state('login', {
+          url: '/login',
+          templateUrl: 'app/pages/view.login.html'
         });
 
     }]);

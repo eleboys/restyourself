@@ -17,7 +17,7 @@ var argsv = require('yargs').default({
 }).argv;
 var admin_node, server_node;
 
-var adminFiles = ['./src/admin/**/*.*', '!./src/admin/**/*.s*ss'];
+var adminFiles = ['./src/admin/**/*.*', '!./src/admin/**/*.s*ss', '!./src/admin/**/*.ts'];
 
 gulp.task('sass', function () {
   return gulp.src('./src/admin/**/*.scss')
@@ -58,16 +58,19 @@ gulp.task('serve:dist', function () {
 })
 
 gulp.task('tsc', function () {
-  return gulp.src('src/server/**/*.ts')
-    .pipe(ts({
-      noImplicitAny: true
-    }))
+  var serverBack = gulp.src('src/server/**/*.ts')
+    .pipe(ts({noImplicitAny: true}))
     .pipe(gulp.dest('dist/server'));
+  var adminBack = gulp.src('src/admin/backend/**/*.ts')
+    .pipe(ts({ noImplicitAny: true}))
+    .pipe(gulp.dest('dist/admin/backend'));
+
+    return [serverBack, adminBack];
 });
 
 gulp.task('run-node:admin', () => {
   if (admin_node) admin_node.kill()
-  admin_node = spawn('node', ['dist/server/admin.js',`--port=${argsv.adminport}`], {
+  admin_node = spawn('node', ['dist/admin/backend/admin.js',`--port=${argsv.adminport}`], {
     stdio: 'inherit'
   })
   admin_node.on('close', function (code) {
@@ -92,8 +95,12 @@ gulp.task('run-node:server', () => {
 gulp.task('dev', callback => {
   runSequence('sass', 'copy:admin', 'serve:dev','tsc', 'run-node:server', 'run-node:admin');
 
-  gulp.watch('./src/server/*.ts', function () {
-    runSequence('tsc','run-node:server','run-node:admin' );
+  gulp.watch('./src/server/**/*.ts', function () {
+    runSequence('tsc','run-node:server' );
+  });
+
+  gulp.watch('./src/admin/backebd/**/*.ts', function () {
+    runSequence('tsc','run-node:admin' );
   });
 });
 

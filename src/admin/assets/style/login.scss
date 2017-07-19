@@ -1,0 +1,22 @@
+html {
+  background: url('../img/login-background.png') no-repeat;
+  background-size: cover;
+  body {
+    background-color: transparent !important;
+
+    [data-ui-view] {
+        height: 100%;
+        .grid {
+          height: 100%;
+          .column {
+            max-width: 450px;
+            .ui.segment {
+              background: rgba(255,255,255,0.8);
+              padding: 30px;
+            }
+          }
+        }
+    }
+
+  }
+}

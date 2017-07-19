@@ -1,15 +1,15 @@
 'use strict';
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
-var runSequence = require('run-sequence');
-var browserSync = require('browser-sync').create();
-var spawn = require('child_process').spawn;
-var ts = require('gulp-typescript');
-var connect = require('gulp-connect');
-var myip = require('quick-local-ip');
-var replace = require('gulp-replace');
-var argsv = require('yargs').default({
+var gulp          = require('gulp');
+var sass          = require('gulp-sass');
+var autoprefixer  = require('gulp-autoprefixer');
+var runSequence   = require('run-sequence');
+var browserSync   = require('browser-sync').create();
+var spawn         = require('child_process').spawn;
+var connect       = require('gulp-connect');
+var myip          = require('quick-local-ip');
+var replace       = require('gulp-replace');
+var argsv         = require('yargs').default(
+{
   adminuiport:8989,
   adminport:3101,
   restport:3100,
@@ -17,7 +17,8 @@ var argsv = require('yargs').default({
 }).argv;
 var admin_node, server_node;
 
-var adminFiles = ['./src/admin/**/*.*', '!./src/admin/**/*.s*ss', '!./src/admin/**/*.ts'];
+var adminFiles = ['./src/admin/**/*.*', '!./src/admin/**/*.s*ss'];
+var serverFiles = ['./src/server/**/*.js'];
 
 gulp.task('sass', function () {
   return gulp.src('./src/admin/**/*.scss')
@@ -33,6 +34,11 @@ gulp.task('copy:admin', function () {
     .pipe(replace('{{admin-port}}', argsv.adminport, { skipBinary: true }))
     .pipe(gulp.dest('./dist/admin'));
 });
+
+gulp.task('copy:server', function () {
+  return gulp.src(serverFiles)
+    .pipe(gulp.dest('./dist/server'));
+})
 
 gulp.task('reload', function () {
   browserSync.reload();
@@ -57,16 +63,6 @@ gulp.task('serve:dist', function () {
   });
 })
 
-gulp.task('tsc', function () {
-  var serverBack = gulp.src('src/server/**/*.ts')
-    .pipe(ts({noImplicitAny: true}))
-    .pipe(gulp.dest('dist/server'));
-  var adminBack = gulp.src('src/admin/backend/**/*.ts')
-    .pipe(ts({ noImplicitAny: true}))
-    .pipe(gulp.dest('dist/admin/backend'));
-
-    return [serverBack, adminBack];
-});
 
 gulp.task('run-node:admin', () => {
   if (admin_node) admin_node.kill()
@@ -93,19 +89,19 @@ gulp.task('run-node:server', () => {
 });
 
 gulp.task('dev', callback => {
-  runSequence('sass', 'copy:admin', 'serve:dev','tsc', 'run-node:server', 'run-node:admin');
+  runSequence('sass', 'copy:admin', 'copy:server', 'serve:dev', 'run-node:server', 'run-node:admin');
 
-  gulp.watch('./src/server/**/*.ts', function () {
-    runSequence('tsc','run-node:server' );
+  gulp.watch('./src/server/**/*.js', function () {
+    runSequence('copy:server','run-node:server' );
   });
 
-  gulp.watch('./src/admin/backebd/**/*.ts', function () {
-    runSequence('tsc','run-node:admin' );
+  gulp.watch('./src/admin/backebd/**/*.js', function () {
+    runSequence('copy:admin','run-node:admin' );
   });
 });
 
 gulp.task('dist', callback => {
-  runSequence('sass', 'copy:admin', 'serve:dist', 'tsc', 'run-node:server', 'run-node:admin');
+  runSequence('sass', 'copy:admin', 'copy:server', 'serve:dist', 'tsc', 'run-node:server', 'run-node:admin');
 });
 
 

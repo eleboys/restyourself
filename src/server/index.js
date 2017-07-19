@@ -5,17 +5,17 @@ var ejs     = require('ejs');
 var fs      = require('fs');
 var argsv   = require('yargs').default('port', 3100).argv;
 var routes  = require('./routes');
-var router: any = undefined;
+var router = undefined;
 
 app.use(cors());
 
 router = routes(express);
 
-app.use(function (req: any, res: any, next: any) {
+app.use(function (req, res, next) {
   router(req, res, next);
 });
 
-fs.watch('./restconf.json',function (eventType:any, filename:any) {
+fs.watch('./restconf.json',function (eventType, filename) {
   console.warn(filename + ' changed!');
   router = routes(express);
 });

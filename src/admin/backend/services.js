@@ -11,7 +11,7 @@ module.exports = {
   getApiById: getApiById
 }
 
-function getApiById(id: number) {
+function getApiById(id) {
   return db1.get('apis')
     .find({ id: id })
     .value();
@@ -21,7 +21,7 @@ function getAllApis() {
   return db1.get('apis').value();
 }
 
-function createApi(apiVm: any) {
+function createApi(apiVm) {
   var id = db1.get('idSeed').value();
   var api = apiVmToDto(apiVm);
   id++;
@@ -31,20 +31,20 @@ function createApi(apiVm: any) {
   return api;
 }
 
-function updateApi(apiVm: any) {
+function updateApi(apiVm) {
   db1.get('apis')
     .find({ id: apiVm.id })
     .assign(apiVmToDto(apiVm))
     .write();
 }
 
-function deleteApiById(id:number) {
+function deleteApiById(id) {
   db1.get('apis')
      .remove({id: id})
      .write();
 }
 
-function apiVmToDto(apiVm:any): any {
+function apiVmToDto(apiVm) {
   return {
       request: {
         path: apiVm.path,

@@ -47,38 +47,38 @@ app.post('/login', forceAuth,function(req, res) {
     res.send(req.user);
 });
 
-app.get('/api/configs/:id', forceAuth, function (req: any, res: any) {
+app.get('/api/configs/:id', forceAuth, function (req, res) {
   res.type('application/json');
   var api = services.getApiById(parseInt(req.params.id));
   res.send(api);
 });
 
-app.get('/api/configs', forceAuth, function (req: any, res: any) {
+app.get('/api/configs', forceAuth, function (req, res) {
   var configs = services.getAllApis();
   res.type('application/json');
   res.send(configs);
 });
 
-app.post('/api/configs', forceAuth, upload.array(), function (req: any, res: any) {
+app.post('/api/configs', forceAuth, upload.array(), function (req, res) {
   var api = services.createApi(req.body);
   res.send(api);
 });
 
-app.put('/api/configs', forceAuth, upload.array(), function (req:any, res: any) {
+app.put('/api/configs', forceAuth, upload.array(), function (req, res) {
   var api = services.updateApi(req.body);
   res.send(api);
 });
 
-app.delete('/api/configs/:id', forceAuth, function (req:any, res: any) {
+app.delete('/api/configs/:id', forceAuth, function (req, res) {
   services.deleteApiById(parseInt(req.params.id));
   res.send(200);
 });
 
-app.get('/export', forceAuth, (req: any, res: any) => {
+app.get('/export', forceAuth, (req, res) => {
   res.download('./restconf.json');
 });
 
-app.put('/import', forceAuth, (req: any, res: any) => {
+app.put('/import', forceAuth, (req, res) => {
   res.download('./restconf.json');
 });
 

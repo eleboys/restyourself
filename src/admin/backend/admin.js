@@ -8,6 +8,8 @@ var passport   = require('passport');
 var BasicStrategy   = require('./passport-basic-extended').BasicExtendedStrategy;
 var db         = require('./db');
 var forceAuth  = passport.authenticate('basic', {session: false});
+var path       = require('path');
+
 
 // Configure the local strategy for use by Passport.
 passport.use(new BasicStrategy(
@@ -42,6 +44,8 @@ app.use(require('body-parser').urlencoded({ extended: true }));
 // Initialize Passport and restore authentication state, if any, from the session.
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.post('/login', forceAuth,function(req, res) {
     res.send(req.user);

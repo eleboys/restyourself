@@ -3,15 +3,12 @@ var gulp          = require('gulp');
 var sass          = require('gulp-sass');
 var autoprefixer  = require('gulp-autoprefixer');
 var runSequence   = require('run-sequence');
-var browserSync   = require('browser-sync').create();
 var spawn         = require('child_process').spawn;
-var connect       = require('gulp-connect');
 var myip          = require('quick-local-ip');
 var replace       = require('gulp-replace');
 var argsv         = require('yargs').default(
 {
-  adminuiport:8989,
-  adminport:3101,
+  adminport:8989,
   restport:3100,
   localip: myip.getLocalIP4()
 }).argv;
@@ -24,8 +21,7 @@ gulp.task('sass', function () {
   return gulp.src('./src/admin/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer(['last 2 versions', 'ie 8', 'ie 9']))
-    .pipe(gulp.dest('./dist/admin'))
-    .pipe(browserSync.stream());
+    .pipe(gulp.dest('./dist/admin'));
 });
 
 gulp.task('copy:admin', function () {
@@ -40,27 +36,14 @@ gulp.task('copy:server', function () {
     .pipe(gulp.dest('./dist/server'));
 })
 
-gulp.task('reload', function () {
-  browserSync.reload();
-});
 
 gulp.task('serve:dev', function () {
-  browserSync.init({
-    server: {
-      baseDir: "./dist/admin/frontend"
-    },
-    port: argsv.adminuiport
-  });
-
-  gulp.watch(adminFiles, runSequenceTaskAndReloadBrowser('copy:admin'));
+  gulp.watch(adminFiles, ['copy:admin']);
   gulp.watch('./src/admin/frontend/**/*.scss', ['sass'])
 });
 
 gulp.task('serve:dist', function () {
-  connect.server({
-    root: './dist/admin/frontend',
-    port: argsv.adminuiport
-  });
+
 })
 
 
@@ -95,7 +78,7 @@ gulp.task('dev', callback => {
     runSequence('copy:server','run-node:server' );
   });
 
-  gulp.watch('./src/admin/backebd/**/*.js', function () {
+  gulp.watch('./src/admin/backend/**/*.js', function () {
     runSequence('copy:admin','run-node:admin' );
   });
 });
@@ -104,14 +87,6 @@ gulp.task('dist', callback => {
   runSequence('sass', 'copy:admin', 'copy:server', 'serve:dist', 'run-node:server', 'run-node:admin');
 });
 
-
-function runSequenceTaskAndReloadBrowser(taskName) {
-  return function () {
-    runSequence(taskName, function () {
-      browserSync.reload();
-    });
-  }
-}
 
 // clean up if an error goes unhandled.
 process.on('exit', function() {

@@ -47,18 +47,18 @@ gulp.task('reload', function () {
 gulp.task('serve:dev', function () {
   browserSync.init({
     server: {
-      baseDir: "./dist/admin"
+      baseDir: "./dist/admin/frontend"
     },
     port: argsv.adminuiport
   });
 
   gulp.watch(adminFiles, runSequenceTaskAndReloadBrowser('copy:admin'));
-  gulp.watch('./src/admin/**/*.scss', ['sass'])
+  gulp.watch('./src/admin/frontend/**/*.scss', ['sass'])
 });
 
 gulp.task('serve:dist', function () {
   connect.server({
-    root: './dist/admin',
+    root: './dist/admin/frontend',
     port: argsv.adminuiport
   });
 })

@@ -1,4 +1,4 @@
-<div class="ui grid">
+<div class="ui grid top attached segment grey secondary">
   <div class="eight wide column">
     <button class="ui primary icon button" ui-sref="app.detail({id:null})">
       <i class="plus icon"></i>
@@ -21,6 +21,52 @@
   </div>
 </div>
 
+<table ng-table="vm.tableParams" class="ui celled table compact segment attached" template-pagination="custom/pager">
+  <tr ng-repeat="row in $data" ng-class="{active: row==vm.selectedRow}" ng-click="vm.selectedRow=row">
+      <td data-title="'Url'" sortable="'request.path'">
+        {{row.request.path}}
+        <button class="mini right floated ui icon button" ng-click="vm.copy(row.request.path)">
+          <i class="copy icon"></i>
+        </button>
+      </td>
+      <td data-title="'Method'" sortable="'request.method'">{{row.request.method|uppercase}}</td>
+      <td data-title="'Content Type'" sortable="'response.contentType'">{{row.response.contentType}}</td>
+      <td data-title="'Status'" sortable="'response.status'">{{row.response.status}}</td>
+  </tr>
+</table>
+
+<script type="text/ng-template" id="custom/pager">
+  <div class="ui bottom attached segment clearing secondary"  ng-if="params.data.length">
+      <div class="ui right floated pagination menu">
+        <div ng-repeat="page in pages" ng-switch="page.type">
+          <a class="icon item" ng-switch-when="prev" ng-click="params.page(page.number)">
+            <i class="left chevron icon"></i>
+          </a>
+          <a class="item" ng-if="page.type=='page' || page.type=='first' || page.type=='last'" ng-bind="page.number" ng-click="params.page(page.number)" ng-class="{active:!page.active}"></a>
+          <a class="icon item" ng-switch-when="next" ng-click="params.page(page.number)">
+            <i class="right chevron icon"></i>
+          </a>
+        </div>
+      </div>
+  </div>
+<!--
+      <ul class="pagination ng-table-pagination pull-right">
+        <li ng-class="{'disabled': !page.active && !page.current, 'active': page.current}" ng-repeat="page in pages" ng-switch="page.type">
+          <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo;</a>
+          <a ng-switch-when="first" ng-click="params.page(page.number)" href="">
+            <span ng-bind="page.number"></span>
+          </a>
+          <a ng-switch-when="page" ng-click="params.page(page.number)" href="">
+            <span ng-bind="page.number"></span>
+          </a> <a ng-switch-when="more" ng-click="params.page(page.number)" href="">&#8230;</a>
+          <a ng-switch-when="last" ng-click="params.page(page.number)" href="">
+            <span ng-bind="page.number"></span>
+          </a> <a ng-switch-when="next" ng-click="params.page(page.number)" href="">&raquo;</a>
+        </li>
+      </ul>-->
+</script>
+
+<!--
 <table class="ui celled table compact">
   <thead>
     <tr>
@@ -42,4 +88,4 @@
       <td>{{item.response.status}}</td>
     </tr>
   </tbody>
-</table>
+</table>-->

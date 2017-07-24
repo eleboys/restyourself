@@ -4,6 +4,7 @@
   angular.module('rys-app', [
 		'ui.router',
     'ui.ace',
-    'ngCookies'
+    'ngCookies',
+    'ngTable'
   ]);
 })();

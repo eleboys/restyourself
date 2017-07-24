@@ -5,13 +5,14 @@
     .module('rys-app')
     .controller('ConfigListController', ConfigListController);
 
-  ConfigListController.$inject = ['configService'];
-  function ConfigListController(configService) {
+  ConfigListController.$inject = ['configService','NgTableParams'];
+  function ConfigListController(configService,NgTableParams) {
     var vm = this;
     vm.configs = [];
     vm.searchKeyword = "";
     vm.deleteApi = deleteApi;
     vm.copy = copy;
+    vm.tableParams = new NgTableParams()
 
     activate();
 
@@ -23,8 +24,10 @@
 
     function reloadList() {
       configService.getAll().then(function (result) {
-        vm.configs = result.data;
-      })
+        vm.tableParams.settings({
+          dataset : result.data
+        })
+      });
     }
 
     function copy(text) {

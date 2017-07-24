@@ -1,7 +1,6 @@
 var express = require('express');
 var cors    = require('cors');
 var app     = express();
-var ejs     = require('ejs');
 var fs      = require('fs');
 var argsv   = require('yargs').default('port', 3100).argv;
 var routes  = require('./routes');

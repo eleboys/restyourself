@@ -28,6 +28,7 @@ gulp.task('copy:admin', function () {
   return gulp.src(adminFiles)
     .pipe(replace('{{ip-address-placeholder}}', argsv.localip, {skipBinary: true}))
     .pipe(replace('{{admin-port}}', argsv.adminport, { skipBinary: true }))
+    .pipe(replace('{{resrt-port}}', argsv.restport, { skipBinary: true }))
     .pipe(gulp.dest('./dist/admin'));
 });
 

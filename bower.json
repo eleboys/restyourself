@@ -22,6 +22,7 @@
     "ace-builds": "^1.2.6",
     "angular-ui-ace": "^0.2.3",
     "PACE": "pace#^1.0.2",
-    "angular-cookies": "^1.6.5"
+    "angular-cookies": "^1.6.5",
+    "clipboard.js": "^0.3.5"
   }
 }

@@ -11,6 +11,7 @@
     vm.configs = [];
     vm.searchKeyword = "";
     vm.deleteApi = deleteApi;
+    vm.copy = copy;
 
     activate();
 
@@ -26,6 +27,10 @@
       })
     }
 
+    function copy(text) {
+      var base = 'http://{{ip-address-placeholder}}:{{rest-port}}';
+      clipboard.copy(base + text);
+    }
 
     function deleteApi(id) {
       if(confirm('Are you sure to delete?')) {

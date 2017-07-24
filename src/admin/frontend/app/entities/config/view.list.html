@@ -32,7 +32,11 @@
   </thead>
   <tbody>
     <tr ng-repeat="item in vm.configs | filter:{'request': { 'path': vm.searchKeyword } }" ng-class="{active: item==vm.selectedRow}" ng-click="vm.selectedRow=item">
-      <td>{{item.request.path}}</td>
+      <td>{{item.request.path}}
+        <button class="mini right floated ui icon button" ng-click="vm.copy(item.request.path)">
+          <i class="copy icon"></i>
+        </button>
+      </td>
       <td>{{item.request.method|uppercase}}</td>
       <td>{{item.response.contentType}}</td>
       <td>{{item.response.status}}</td>

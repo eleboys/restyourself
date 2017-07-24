@@ -74,7 +74,8 @@
         "status": "200",
         "contentType": "application/json",
         "type": "json",
-        "body": "[]"
+        "body": "{\n    \"hell0\": 1\n}",
+        "headers": []
       },
       "id": 8
     },

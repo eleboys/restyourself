@@ -6,5 +6,34 @@
     {
       "id": 1
     }
+  ],
+  "roomTypes": [
+    {
+      "room": true,
+      "name": "Single",
+      "capacity": "1",
+      "age": "10",
+      "id": "fd1111c0-7048-11e7-8317-e54a83c32954"
+    },
+    {
+      "room": true,
+      "name": "Double",
+      "capacity": "2",
+      "age": "10",
+      "id": "078f12f0-7049-11e7-8317-e54a83c32954"
+    }
+  ],
+  "hotels": [
+    {
+      "latitude": "35.6793864930130",
+      "longitude": "51.3885498046875",
+      "hotelBannerId": null,
+      "fileIds": [],
+      "name": "Hotel Azadi",
+      "star": 4,
+      "top": true,
+      "address": "Tehran- Iran",
+      "id": "f3937eb0-704a-11e7-8317-e54a83c32954"
+    }
   ]
 }

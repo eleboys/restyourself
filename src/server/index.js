@@ -7,6 +7,8 @@ var routes  = require('./routes');
 var router = undefined;
 
 app.use(cors());
+app.use(require('body-parser').json());
+app.use(require('body-parser').urlencoded({ extended: true }));
 
 router = routes(express);
 

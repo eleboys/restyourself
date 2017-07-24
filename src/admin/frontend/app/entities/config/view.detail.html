@@ -65,13 +65,14 @@
         <p>Using EJS you can define templating language features in your output. You have access to some pre defined variable and objects to do some professional actions according to current http Request & Response and you have a access to a local database too! (horray!)</p>
         <p><strong>req</strong> (object): Currect http request object [req.body | req.params.id]<br/>
         <strong>res</strong> (object): Currect http response object<br/>
-        <strong>db</strong> (object): Local json database [db.get('products').value() | db.get('products').push(a-product-instance).write() | .... ]
+        <strong>db</strong> (object): Local json database [db.get('products').value() | db.get('products').push(a-product-instance).write() | .... ]<br/>
+        <strong>uuid</strong> (function): Generate uniqe id.
         </p>
       </div>
       <div class="ui visible message" ng-if="vm.api.type=='javascript'">
         <div class="header">Javascript Function</div>
         <p>Using javascript function you have access to both current http request and response object. your function must return the request output message, meanwhile you can edit response properties.</p>
-        <p>function (req, res) {
+        <p>function (req, res, db, uuid) {
           return 'test';
         }
         </p>

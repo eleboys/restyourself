@@ -244,7 +244,20 @@
         "headers": []
       },
       "id": 26
+    },
+    {
+      "request": {
+        "path": "/test",
+        "method": "get"
+      },
+      "response": {
+        "status": 200,
+        "contentType": "image/png",
+        "type": "image",
+        "headers": []
+      },
+      "id": 27
     }
   ],
-  "idSeed": 26
+  "idSeed": 27
 }

@@ -1,12 +1,14 @@
 var ejs     = require('ejs');
 var datadb  = require('lowdb')('./data.json');
 var uuid    = require('uuid/v1');
+var path    = require('path');
 
 
 module.exports.javascriptStrategy = javascriptStrategy;
 module.exports.ejsStrategy = ejsStrategy;
 module.exports.jsonStrategy = commonStrategy;
 module.exports.textStrategy = commonStrategy;
+module.exports.imageStrategy = imageStrategy;
 
 
 function javascriptStrategy(req, res, resConf) {
@@ -21,4 +23,8 @@ function ejsStrategy(req, res, resConf) {
 
 function commonStrategy(req, res, resConf) {
   res.send(resConf.body);
+}
+
+function imageStrategy(req, res, resConf) {
+  res.redirect('http://lorempixel.com/400/300/');
 }

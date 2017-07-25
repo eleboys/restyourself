@@ -8,11 +8,11 @@
 <h4 class="ui header dividing">
   Import Rest Config File
 </h4>
-<form class="ui form">
+<form class="ui form" ng-submit="vm.import()">
   <p>Select config file from your computer</p>
   <div class="field">
     <label>Json File</label>
-    <input type="file" name="importfile" placeholder="Select Json File">
+    <input type="file" name="importfile" file-model ng-model="vm.file" placeholder="Select Json File">
   </div>
   <button type="submit" class="ui button primary">Send</button>
 </form>
@@ -23,7 +23,7 @@
 </h4>
 <section>
   <p>Download current rest config file from below.</p>
-  <a href="http://{{ip-address-placeholder}}:{{admin-port}}/export" class="ui button basic primary" type="submit">Download</a>
+  <button ng-click="vm.export()" class="ui button basic primary" type="button">Download</button>
 </section>
 <br/>
 <br/>

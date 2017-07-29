@@ -5,7 +5,7 @@
     .module('rys-app')
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-      $urlRouterProvider.otherwise("/login");
+      $urlRouterProvider.otherwise("/list");
       // $locationProvider.html5Mode(true);
 
       $stateProvider

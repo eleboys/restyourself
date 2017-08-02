@@ -17,7 +17,8 @@
 		vm.deleteApi = deleteApi;
 		vm.copy = copy;
 		vm.tagFilter = [];
-		vm.tableParams = new NgTableParams()
+		vm.tableParams = new NgTableParams();
+		vm.filterTag = filterTag;
 		vm.strToColor = strToColor;
 
 		activate();
@@ -38,6 +39,11 @@
 				});
 			})
 
+		}
+
+		function filterTag(tag) {
+			if (_.includes(vm.tagFilter, tag)) return;
+			vm.tagFilter.push(tag);
 		}
 
 		function strToColor(str) {

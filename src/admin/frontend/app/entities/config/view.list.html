@@ -49,13 +49,13 @@
 					<td data-title="'Url'" sortable="'request.path'">
 						{{row.request.path}}
 						<div style="float:right">
-							<a class="ui tiny label basic right floated" ng-class="vm.strToColor(tag)" ng-repeat="tag in row.tags">{{tag}}</a>
+							<a class="ui tiny label circular basic right floated" ng-class="vm.strToColor(tag)" ng-repeat="tag in row.tags" ng-click="vm.filterTag(tag)">{{tag}}</a>
 							<button class="mini right floated ui icon button" ng-click="vm.copy(row.request.path)">
 								<i class="copy icon"></i>
 							</button>
 						</div>
 					</td>
-					<td data-title="'Content Type'" sortable="'response.contentType'">{{row.response.contentType}}</td>
+					<td data-title="'Content Type'"  width="200" sortable="'response.contentType'">{{row.response.contentType}}</td>
 					<td data-title="'Method'" width="100" class="center aligned" sortable="'request.method'">
 						<h5 class="ui header " ng-class="{'blue':row.request.method=='get', 'green': row.request.method=='post', 'violet':row.request.method=='put', 'red':row.request.method=='delete'}">{{row.request.method|uppercase}}</h5>
 					</td>

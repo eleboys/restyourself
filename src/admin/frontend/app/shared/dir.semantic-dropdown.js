@@ -29,7 +29,12 @@
 						else
 							ngModelCtrl.$setViewValue(value.split(','));
 					}
-				})
+				});
+				scope.$watch(function () {
+					return ngModelCtrl.$viewValue;
+				}, function (newValue, oldValue) {
+					element.dropdown('set selected', newValue);
+				}, true);
 			}
       setTimeout(function () {
 				element.dropdown(options);

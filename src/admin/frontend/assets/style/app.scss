@@ -3,6 +3,13 @@ body {
   background-color: lighten(#eee, 3%) !important;
 }
 
+.ui.dropdown.multiple.button {
+	vertical-align: middle;
+	a.ui.label {
+		margin: 0.19em 0.19em 0.19em 0 !important;
+	}
+}
+
 .ui.main.container {
   margin-top: 100px;
 }

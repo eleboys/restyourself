@@ -82,7 +82,8 @@
         "headers": []
       },
       "tags": [
-        "base-data"
+        "base-data",
+        "pms"
       ]
     },
     {
@@ -99,7 +100,8 @@
       },
       "id": 8,
       "tags": [
-        "agency"
+        "agency",
+        "pms"
       ]
     },
     {
@@ -116,7 +118,8 @@
       },
       "id": 9,
       "tags": [
-        "agency"
+        "agency",
+        "pms"
       ]
     },
     {
@@ -133,7 +136,8 @@
       },
       "id": 10,
       "tags": [
-        "accomodation"
+        "accomodation",
+        "pms"
       ]
     },
     {
@@ -201,7 +205,8 @@
       },
       "id": 17,
       "tags": [
-        "package"
+        "package",
+        "pms"
       ]
     },
     {
@@ -235,7 +240,8 @@
       },
       "id": 22,
       "tags": [
-        "accomodation"
+        "accomodation",
+        "pms"
       ]
     },
     {
@@ -252,7 +258,8 @@
       },
       "id": 23,
       "tags": [
-        "accomodation"
+        "accomodation",
+        "pms"
       ]
     },
     {
@@ -269,7 +276,8 @@
       },
       "id": 24,
       "tags": [
-        "accomodation"
+        "accomodation",
+        "pms"
       ]
     },
     {
@@ -286,7 +294,8 @@
       },
       "id": 25,
       "tags": [
-        "accomodation"
+        "accomodation",
+        "pms"
       ]
     },
     {
@@ -303,7 +312,8 @@
       },
       "id": 26,
       "tags": [
-        "accomodation"
+        "accomodation",
+        "pms"
       ]
     },
     {
@@ -322,7 +332,61 @@
         "test",
         "security"
       ]
+    },
+    {
+      "tags": [
+        "pms",
+        "accomodation"
+      ],
+      "request": {
+        "path": "/pms/api/v1/hotels/:id",
+        "method": "delete"
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json",
+        "type": "ejs",
+        "body": "<%\ndb.get('hotels')\n  .remove({ id: req.params.id })\n  .write()\n%>",
+        "headers": []
+      },
+      "id": 28
+    },
+    {
+      "tags": [
+        "pms",
+        "package"
+      ],
+      "request": {
+        "path": "/api/v1/tourPackages",
+        "method": "post"
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json",
+        "type": "json",
+        "body": "{\n  \"ageRequirement\": 0,\n  \"agencyId\": 0,\n  \"bannerId\": \"string\",\n  \"cancellationPolicy\": \"string\",\n  \"capacity\": 0,\n  \"currency\": \"string\",\n  \"default\": true,\n  \"description\": \"string\",\n  \"duration\": 0,\n  \"fileIds\": [\n    \"string\"\n  ],\n  \"groupId\": \"string\",\n  \"hotelPackageDates\": [\n    {\n      \"hotelPackages\": [\n        {\n          \"boardType\": \"BB\",\n          \"hotelPackageDateId\": 0,\n          \"hotelPackageId\": 0,\n          \"hotelPackageRoomTypes\": [\n            {\n              \"hotelPackageRoomTypeId\": 0,\n              \"numberOfRooms\": 0\n            }\n          ],\n          \"hotels\": [\n            {\n              \"hotelBanner\": \"string\",\n              \"id\": 0,\n              \"name\": \"string\"\n            }\n          ],\n          \"id\": 0,\n          \"isTop\": true,\n          \"personCapacity\": 0,\n          \"roomCapacity\": 0,\n          \"star\": 0,\n          \"top\": true\n        }\n      ],\n      \"id\": 0,\n      \"startDate\": \"2017-08-02T06:24:46.444Z\",\n      \"tourPackageId\": 0\n    }\n  ],\n  \"id\": 0,\n  \"isDeleted\": true,\n  \"isEnable\": true,\n  \"itineraries\": [\n    {\n      \"city\": {\n        \"destinationCode\": \"string\",\n        \"id\": 0,\n        \"latitude\": 0,\n        \"longitude\": 0,\n        \"name\": \"string\",\n        \"provinceCode\": \"string\",\n        \"provinceId\": 0\n      },\n      \"country\": {\n        \"abbreviation\": \"string\",\n        \"id\": 0,\n        \"name\": \"string\"\n      },\n      \"description\": \"string\",\n      \"duration\": 0,\n      \"id\": 0,\n      \"latitude\": 0,\n      \"longitude\": 0,\n      \"order\": 0,\n      \"title\": \"string\"\n    }\n  ],\n  \"languageCode\": \"string\",\n  \"logoId\": \"string\",\n  \"overview\": \"string\",\n  \"sightseeing\": \"string\",\n  \"title\": \"string\",\n  \"topPackage\": true,\n  \"tourService\": \"string\"\n}",
+        "headers": []
+      },
+      "id": 29
+    },
+    {
+      "tags": [
+        "accomodation",
+        "pms"
+      ],
+      "request": {
+        "path": "/pms/api/v1/hotels",
+        "method": "put"
+      },
+      "response": {
+        "status": 200,
+        "contentType": "application/json",
+        "type": "ejs",
+        "body": "<%\ndb.get('roomTypes')\n  .find({ id: req.body.id })\n  .assign(req.body)\n  .write()\n%>",
+        "headers": []
+      },
+      "id": 30
     }
   ],
-  "idSeed": 27
+  "idSeed": 30
 }

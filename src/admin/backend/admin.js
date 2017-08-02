@@ -1,15 +1,16 @@
-var express = require('express');
-var low = require('lowdb');
-var cors = require('cors');
-var multer = require('multer');
-var services = require('./services');
-var argsv = require('yargs').default('port', 3101).argv;
-var passport = require('passport');
+var express = 		require('express');
+var low = 				require('lowdb');
+var cors = 				require('cors');
+var multer = 			require('multer');
+var services = 		require('./services');
+var argsv = 			require('yargs').default('port', 3101).argv;
+var passport = 		require('passport');
 var BasicStrategy = require('./passport-basic-extended').BasicExtendedStrategy;
-var db = require('./db');
-var forceAuth = passport.authenticate('basic', { session: false });
-var path = require('path');
-var fs = require('fs');
+var db = 					require('./db');
+var forceAuth = 	passport.authenticate('basic', { session: false });
+var path = 				require('path');
+var crypto = 			require('crypto');
+var fs = 					require('fs');
 
 
 // Configure the local strategy for use by Passport.
@@ -18,7 +19,9 @@ passport.use(new BasicStrategy(
 		db.users.findByUsername(username, function (err, user) {
 			if (err) { return cb(err); }
 			if (!user) { return cb(null, false); }
-			if (user.password != password) { return cb(null, false); }
+			if (user.password !== crypto.createHash('md5').update(password).digest('hex')) {
+				return cb(null, false);
+			}
 			return cb(null, user);
 		});
 	}));

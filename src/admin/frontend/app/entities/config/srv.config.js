@@ -25,7 +25,8 @@
         return {
           id : api.id,
           path: api.request.path,
-          method: api.request.method,
+					method: api.request.method,
+					tags: api.tags,
           type: api.response.type,
           body: api.response.body,
           contentType: api.response.contentType,

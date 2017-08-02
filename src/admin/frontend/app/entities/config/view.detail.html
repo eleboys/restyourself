@@ -15,7 +15,7 @@
     <div class="field">
       <label>Path</label>
       <input type="text" name="path" placeholder="Url Path" ng-model="vm.api.path">
-    </div>
+		</div>
     <div class="two fields">
       <div class="field ">
         <label>Method</label>
@@ -27,7 +27,17 @@
           <option value="delete">DELETE</option>
           <option value="delete">OPTIONS</option>
         </select>
-      </div>
+			</div>
+			<div class="two field">
+				<label>Tags</label>
+				<div class="ui fluid multiple search selection dropdown" ng-model="vm.api.tags" semantic-dropdown="{allowAdditions:true}">
+					<input name="tags" type="hidden">
+					<i class="dropdown icon"></i>
+					<div class="default text">Add Tags</div>
+					<div class="menu">
+					</div>
+				</div>
+			</div>
     </div>
   </section>
   <br>

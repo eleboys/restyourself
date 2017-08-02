@@ -1,46 +1,84 @@
-(function() {
-'use strict';
+(function () {
+	'use strict';
 
-  angular
-    .module('rys-app')
-    .controller('ConfigListController', ConfigListController);
+	angular
+		.module('rys-app')
+		.controller('ConfigListController', ConfigListController);
 
-  ConfigListController.$inject = ['configService','NgTableParams'];
-  function ConfigListController(configService,NgTableParams) {
-    var vm = this;
-    vm.configs = [];
-    vm.searchKeyword = "";
-    vm.deleteApi = deleteApi;
-    vm.copy = copy;
-    vm.tableParams = new NgTableParams()
+	ConfigListController.$inject = ['configService', 'NgTableParams', 'utilityService', '$scope'];
+	function ConfigListController(configService, NgTableParams, utilityService, $scope) {
+		var vm = this,
+			colors = [ 'teal', 'violet', 'red', 'green', 'blue', 'orange', 'yellow', 'olive', 'purple', 'pink', 'brown', 'grey', 'black'],
+			strColorMap = {},
+			originalData = [];
+		vm.configs = [];
+		vm.tags = [];
+		vm.searchKeyword = "";
+		vm.deleteApi = deleteApi;
+		vm.copy = copy;
+		vm.tagFilter = [];
+		vm.tableParams = new NgTableParams()
+		vm.strToColor = strToColor;
 
-    activate();
+		activate();
 
-    ////////////////
+		////////////////
 
-    function activate() {
-      reloadList();
-    }
+		function activate() {
+			reloadList();
 
-    function reloadList() {
-      configService.getAll().then(function (result) {
-        vm.tableParams.settings({
-          dataset : result.data
-        })
-      });
-    }
+			$scope.$watch(function () {
+				return vm.tagFilter
+			}, function (newValue, oldValue) {
+				if (!(newValue)) return;
+				vm.tableParams.settings({
+					dataset: _.filter(originalData, function (o) {
+						return _.difference(newValue, o.tags).length===0;
+					})
+				});
+			})
 
-    function copy(text) {
-      var base = 'http://{{ip-address-placeholder}}:{{rest-port}}';
-      clipboard.copy(base + text);
-    }
+		}
 
-    function deleteApi(id) {
-      if(confirm('Are you sure to delete?')) {
-        configService.deleteById(id).then(function () {
-          reloadList();
-        });
-      }
-    }
-  }
+		function strToColor(str) {
+			if (strColorMap[str]) return strColorMap[str];
+			if (colors.length) {
+				strColorMap[str] = colors.shift();
+			}
+			return strColorMap[str];
+		}
+
+		function reloadList() {
+			configService.getAll().then(function (result) {
+				vm.tags.splice(0, vm.tags.length);
+				vm.tags = _extractTags(result.data);
+				originalData = result.data;
+				vm.tableParams.settings({
+					dataset: result.data
+				});
+			});
+		}
+
+		function _extractTags(data) {
+			var tags = [];
+			for (var i = 0; i < data.length; i++) {
+				var element = data[i];
+				tags = tags.concat(element.tags);
+			}
+			return _.uniq(tags);
+		}
+
+		function copy(text) {
+			var base = 'http://{{ip-address-placeholder}}:{{rest-port}}';
+			clipboard.copy(base + text);
+		}
+
+		function deleteApi(id) {
+			if (confirm('Are you sure to delete?')) {
+				configService.deleteById(id).then(function () {
+					reloadList();
+				});
+			}
+		}
+	}
 })();

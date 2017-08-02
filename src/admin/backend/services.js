@@ -46,6 +46,7 @@ function deleteApiById(id) {
 
 function apiVmToDto(apiVm) {
   return {
+			tags: apiVm.tags,
       request: {
         path: apiVm.path,
         method: apiVm.method

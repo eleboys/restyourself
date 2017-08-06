@@ -24,6 +24,7 @@
     "PACE": "pace#^1.0.2",
     "angular-cookies": "^1.6.5",
     "clipboard.js": "^0.3.5",
-    "ng-table": "1.0.0"
+    "ng-table": "1.0.0",
+    "lodash": "^4.17.4"
   }
 }
